@@ -2,7 +2,7 @@ import Iyzipay from 'iyzipay';
 import * as Cards from './methods/cards.js'
 import nanoid from '../../utils/nanoid.js'
 import * as Logs from '../../utils/logs.js'
-
+import * as Installments from './methods/installments.js'
 
 //Create card and user
 const createUserAndCards = () => {
@@ -93,3 +93,27 @@ const deleteCardOfAUser = () => {
     })
 }
 // deleteCardOfAUser()
+
+
+
+
+
+//INSTALLMENTS
+
+// create a installment plan
+const checkInstallment = () => {
+    Installments.checkInstallment({
+        locale: Iyzipay.LOCALE.TR,
+        conversationId: nanoid(),
+        binNumber:'552879',
+        price:100,        
+    }).then(res => {
+        console.log(res);
+        Logs.logFile('Create Installment Plan', res)
+    }).catch(err => {
+        console.log(err);
+        Logs.logFile('Create Installment Plan', err)
+    })
+}
+
+checkInstallment()
