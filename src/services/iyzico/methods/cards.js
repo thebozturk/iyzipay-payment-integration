@@ -1,4 +1,4 @@
-import iyzipay from "../connection/iyzipay";
+import iyzipay from "../connection/iyzipay.js";
 
 export const createUserCard = async (data) => {
     return new Promise((resolve, reject) => {
