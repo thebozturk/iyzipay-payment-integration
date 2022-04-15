@@ -10,6 +10,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import GenericErrorHandler from './middlewares/GenericErrorHandler.js'
 import ApiError from './error/ApiError.js'
+import DBModels from './db/index.js'
 
 /* Checking if the config.production variable is set to true. If it is, it will load the .prod file in
 the env folder. If it is not, it will load the .dev file in the env folder. */
