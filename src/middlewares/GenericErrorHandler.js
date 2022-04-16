@@ -5,7 +5,7 @@
  * @param res - The response object.
  * @param next - The next middleware function in the stack.
  */
-import ApiError from "../error/ApiError";
+import ApiError from "../error/ApiError.js";
 
 const GenericErrorHandler = (err, req, res, next) => {
     if (!err instanceof ApiError){

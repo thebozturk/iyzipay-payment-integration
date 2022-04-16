@@ -11,11 +11,25 @@ import cors from 'cors'
 import GenericErrorHandler from './middlewares/GenericErrorHandler.js'
 import ApiError from './error/ApiError.js'
 import DBModels from './db/index.js'
+import mongoose from 'mongoose'
+const __dirname = path.resolve();
+
 
 /* Checking if the config.production variable is set to true. If it is, it will load the .prod file in
 the env folder. If it is not, it will load the .dev file in the env folder. */
 const envPath = config?.production ? "./env/.prod" : "./env/.dev"
 dotenv.config({ path: envPath })
+
+
+//DB connection
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log('DB connected successfully.')
+}).catch(err => {
+    console.log(err)
+})
 
 const app = express()
 
@@ -46,8 +60,8 @@ app.use(express.urlencoded({
 /* Checking if the HTTPS_ENABLED environment variable is set to true. If it is, it will create a HTTPS
 server using the key and cert files in the certs folder. If it is not, it will create a HTTP server. */
 if(process.env.HTTPS_ENABLED === 'true') {
-    const key = fs.readFileSync(path.join(__dirname, './certs/key.pem'), 'utf8').toString()
-    const cert = fs.readFileSync(path.join(__dirname, './certs/cert.pem'), 'utf8').toString()
+    const key = fs.readFileSync(path.join(__dirname, './src/certs/key.pem'), 'utf8').toString()
+    const cert = fs.readFileSync(path.join(__dirname, './src/certs/cert.pem'), 'utf8').toString()
     https.createServer({
         key: key,
         cert: cert

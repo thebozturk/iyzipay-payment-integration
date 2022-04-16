@@ -1,8 +1,8 @@
-import Users from './users';
-import Products from './products';
-import Carts from './carts';
-import PaymentSuccess from './payment-success';
-import PaymentFailed from './payment-failed';
+import Users from './users.js';
+import Products from './products.js';
+import Carts from './carts.js';
+import PaymentSuccess from './payment-success.js';
+import PaymentFailed from './payment-failed.js';
 
 
 export default [

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ApiError = _interopRequireDefault(require("../error/ApiError"));
+var _ApiError = _interopRequireDefault(require("../error/ApiError.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,7 +28,7 @@ const GenericErrorHandler = (err, req, res, next) => {
   res.status(err.status || 500).json({
     status: err === null || err === void 0 ? void 0 : err.status,
     error: err === null || err === void 0 ? void 0 : err.message,
-    err: err.code
+    code: err.code
   });
 };
 

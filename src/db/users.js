@@ -90,7 +90,6 @@ const UsersSchema = new Schema({
     },
     cardUserKey:{
         type: String,
-        required: true,
         unique: true
     },
 }, {
@@ -119,7 +118,7 @@ UsersSchema.pre("save", async function(next){
     next()
 })
 
-const Users = mongoose.model("Users", UserSchema);
+const Users = mongoose.model("Users", UsersSchema);
 
 Users.starterData = [
     {
@@ -157,5 +156,5 @@ Users.initializer = async () => {
     }
 }
 
-Users.initializer();
+// Users.initializer();
 export default Users;

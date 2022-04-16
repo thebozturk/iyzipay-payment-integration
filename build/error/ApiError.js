@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+/* It's a custom error class that extends the built-in Error class */
 class ApiError extends Error {
   constructor(message, status = 500, code) {
     super(message);
