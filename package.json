@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "babel src --out-dir=./build --copy-files --watch",
+    "dev": "npx nodemon --exec npx @babel/node ./src/index.js dev --watch",
+    "production":"npm run build && node ./build/index.js",
     "build": "babel src --out-dir=./build --copy-files",
     "start": "npx @babel/node"
   },
@@ -24,12 +25,26 @@
     "@babel/core": "^7.17.8",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "@babel/register": "^7.17.7"
+    "@babel/register": "^7.17.7",
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^5.0.2",
+    "https": "^1.0.0",
     "iyzipay": "^2.0.48",
-    "nanoid": "^3.3.2"
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.2",
+    "mongoose": "^6.2.10",
+    "morgan": "^ƒn1.10.0",
+    "nanoid": "^3.3.2",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "uuid": "^8.3.2"
   }
 }
