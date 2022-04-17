@@ -13,7 +13,10 @@ import ApiError from './error/ApiError.js'
 import DBModels from './db/index.js'
 import mongoose from 'mongoose'
 const __dirname = path.resolve();
-
+import passport from 'passport'
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import Users from './db/users.js'
+import Session from './middlewares/Session.js'
 
 /* Checking if the config.production variable is set to true. If it is, it will load the .prod file in
 the env folder. If it is not, it will load the .dev file in the env folder. */
@@ -37,15 +40,8 @@ app.use(logger(process.env.logger))
 app.use(helmet())
 app.use(cors())
 
-app.use('/',(req,res) => {
-    throw new ApiError('This is a test error', 500, 'test')
-    res.json({
-        message: 'Hello World'
-    })
-})
 
-/* A middleware that will catch any error that is thrown in the application. */
-app.use(GenericErrorHandler)
+
 
 /* Setting the maximum size of the request body to 1mb. */
 app.use(express.json({
@@ -56,6 +52,47 @@ app.use(express.json({
 app.use(express.urlencoded({
     extended: true
 }))
+
+
+passport.serializeUser((user, done) => {
+    done(null, user)
+})
+
+passport.deserializeUser((id, done) => {
+    done(null, id)
+})
+
+app.use(passport.initialize())
+
+const jwtOpts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET
+}
+
+app.all('/test-auth', Session,(req, res, next) => {
+    res.json({
+        test:true
+    })
+})
+
+/* A middleware that will check if the user is authenticated. */
+passport.use(new JwtStrategy(jwtOpts, async(jwt_payload, done) => {
+    try {
+        const user = await Users.findOne({
+            _id: jwt_payload.id
+        })
+        if (user) {
+            done(null,user.toJSON())
+        }else{
+            done(new ApiError('Autherization is not valid', 401, 'authorizationInvalid'),false)
+        }
+    } catch (error) {
+        return done(error, false)
+    }
+}))
+
+/* A middleware that will catch any error that is thrown in the application. */
+app.use(GenericErrorHandler)
 
 /* Checking if the HTTPS_ENABLED environment variable is set to true. If it is, it will create a HTTPS
 server using the key and cert files in the certs folder. If it is not, it will create a HTTP server. */
