@@ -17,6 +17,7 @@ import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import Users from './db/users.js'
 import Session from './middlewares/Session.js'
+import routes from './routes/index.js'
 
 /* Checking if the config.production variable is set to true. If it is, it will load the .prod file in
 the env folder. If it is not, it will load the .dev file in the env folder. */
@@ -35,6 +36,8 @@ mongoose.connect(process.env.MONGO_URL, {
 })
 
 const app = express()
+const router = express.Router()
+
 
 app.use(logger(process.env.logger))
 app.use(helmet())
@@ -68,6 +71,12 @@ const jwtOpts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET
 }
+
+routes.forEach((routeFn, index)=> {
+    routeFn(router)
+})
+
+app.use("/api", router)
 
 app.all('/test-auth', Session,(req, res, next) => {
     res.json({
