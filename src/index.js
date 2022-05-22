@@ -38,7 +38,6 @@ mongoose.connect(process.env.MONGO_URL, {
 const app = express()
 const router = express.Router()
 
-
 app.use(logger(process.env.logger))
 app.use(helmet())
 app.use(cors())
@@ -71,6 +70,21 @@ const jwtOpts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET
 }
+/* A middleware that will check if the user is authenticated. */
+passport.use(new JwtStrategy(jwtOpts, async(jwtPayload, done) => {
+    try {
+        const user = await Users.findOne({
+            _id: jwtPayload._id
+        })
+        if (user) {
+            done(null,user.toJSON())
+        }else{
+            done(new ApiError('Autherization is not valid', 401, 'authorizationInvalid'),false)
+        }
+    } catch (error) {
+        return done(error, false)
+    }
+}))
 
 routes.forEach((routeFn, index)=> {
     routeFn(router)
@@ -84,21 +98,7 @@ app.all('/test-auth', Session,(req, res, next) => {
     })
 })
 
-/* A middleware that will check if the user is authenticated. */
-passport.use(new JwtStrategy(jwtOpts, async(jwt_payload, done) => {
-    try {
-        const user = await Users.findOne({
-            _id: jwt_payload.id
-        })
-        if (user) {
-            done(null,user.toJSON())
-        }else{
-            done(new ApiError('Autherization is not valid', 401, 'authorizationInvalid'),false)
-        }
-    } catch (error) {
-        return done(error, false)
-    }
-}))
+
 
 /* A middleware that will catch any error that is thrown in the application. */
 app.use(GenericErrorHandler)
