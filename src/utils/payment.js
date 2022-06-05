@@ -1,13 +1,13 @@
-import {Types} from mongoose
+import Types from 'mongoose'
 import PaymentSuccess from '../db/payment-success.js'
 import PaymentFailed from '../db/payment-failed.js'
 import Carts from '../db/carts.js'
 const {ObjectId} = Types
 
 
-export const CompletePayment = async (result => {
+export const CompletePayment = async (result) => {
     if(result?.status === 'success'){
-        await Carts.updateOne({_id: ObjectId(result?.basketId)}, {$set: {complated: true}})
+        await Carts.updateOne({_id: ObjectId(result?.basketId)}, {$set: {completed: true}})
         await PaymentSuccess.create({
             status: result?.status,
             cartId: result?.basketId,
@@ -35,4 +35,4 @@ export const CompletePayment = async (result => {
             log:result
         })
     }
-})
+}

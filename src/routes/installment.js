@@ -1,4 +1,4 @@
-import {Types} from 'mongoose';
+import Types from 'mongoose';
 import moment from 'moment';
 import Session from '../middlewares/Session.js';
 import nanoid from '../utils/nanoid.js';
