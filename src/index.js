@@ -44,7 +44,6 @@ app.use(cors())
 
 
 
-
 /* Setting the maximum size of the request body to 1mb. */
 app.use(express.json({
     limit: '1mb'
