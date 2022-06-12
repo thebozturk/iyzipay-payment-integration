@@ -104,7 +104,6 @@ const UsersSchema = new Schema({
   },
   cardUserKey: {
     type: String,
-    required: true,
     unique: true
   }
 }, {
@@ -167,8 +166,8 @@ Users.initializer = async () => {
     const created = await Users.create(Users.starterData);
     console.log(`${created.length} user created.`);
   }
-};
+}; // Users.initializer();
 
-Users.initializer();
+
 var _default = Users;
 exports.default = _default;
