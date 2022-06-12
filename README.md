@@ -63,34 +63,34 @@ npm run dockerize:start
 
 ## Endpoints
 
-<h5>Authroziation<h5>  
+Authroziation 
 ```
 - POST /login - for log in
 ```
-<h5>Cards<h5>  
+Cards
 ```
 - POST /cards - create a card
 - GET /cards - read cards
 - DELETE /cards/delete-by-token - delete a card by token
 - DELETE /cards/:cartId - delete a card by index
 ```
-<h5>Installments<h5>  
+Installments
 ```
 - POST /installments - check installments
 - POST /installments/:cartId - check installments with cartId
 ```
-<h5>Payments<h5>  
+Payments
 ```
 - POST /payments/:cartId/with-new-card - create payment with new card
-- POST /payments/:cartId/with-new-card/register-card - create payment with new card and register card
+- POST /payments/:cartId/with-new-card/register-card - create payment with new card & register card
 - POST /payments/:cartId/with-register-card-index - create payment with registered card index
 - POST /payments/:cartId/with-register-card-token - create payment with registered card token
 ```
-<h5>Cancel Payment<h5>  
+Cancel Payment
 ```
 - POST /payments/:paymentSuccessId/cancel - cancel payment
 ```
-<h5>Refund Payment<h5>  
+Refund Payment
 ```
 - POST /payments/:paymentTransactionId/refund - refund payment
 ```
