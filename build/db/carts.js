@@ -81,7 +81,7 @@ Carts.initializer = async () => {
 Carts.populationTest = async () => {
   const cart = await Carts.findOne({
     _id: Carts.starterData._id
-  }).populate("product", {
+  }).populate("products", {
     name: 1,
     images: 1,
     categories: 1,
@@ -89,13 +89,15 @@ Carts.populationTest = async () => {
     images: 1,
     currency: 1,
     stock: 1,
-    itemType: 1
+    itemType: 1,
+    createdAt: 1
   }).populate("buyer");
   console.log(cart);
-};
+}; // Carts.initializer().then(async res => {
+//     await Carts.populationTest();
+// })
+// Carts.populationTest()
 
-Carts.initializer().then(async res => {
-  await Carts.populationTest();
-});
+
 var _default = Carts;
 exports.default = _default;

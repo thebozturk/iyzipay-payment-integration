@@ -59,8 +59,8 @@ const ProductsSchema = new Schema({
   itemType: {
     type: String,
     required: true,
-    default: 'PHYSCIAL',
-    enum: ['PHYSCIAL', 'VIRTUAL']
+    default: 'PHYSICAL',
+    enum: ['PHYSICAL', 'VIRTUAL']
   }
 }, {
   _id: true,
@@ -113,15 +113,15 @@ Products.starterData = [{
 }];
 
 Products.initializer = async () => {
-  const count = await Users.estimatedDocumentCount();
+  const count = await Products.estimatedDocumentCount();
 
   if (count === 0) {
-    const created = await Users.create(Users.starterData);
+    const created = await Products.create(Products.starterData);
     console.log(`${created.length} products created.`);
     console.log(Products.starterData);
   }
-};
+}; // Products.initializer();
 
-Products.initializer();
+
 var _default = Products;
 exports.default = _default;
