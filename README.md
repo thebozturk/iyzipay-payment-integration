@@ -9,27 +9,27 @@
 <li>Iyzipay</li>
 <li>Babel</li>
 
-### Usage
+### Requirements
 ```
-<li>Iyzipay Test Account</li>
+Iyzipay Test Account
+Docker
 ```
-<br>
 ### Usage
 
 Clone the repository
 
 ```
-`$ git clone https://github.com/thebozturk/iyzipay-payment-integration.git
-````
+`$ git clone https://github.com/thebozturk/iyzipay-payment-integration.git`
+```
 
 Then open the project in ide and follow below commands:
 
-Create environment file (.dev & .prod) for your config information of your database and Iyzipay test interface and fill the content as below.
+Create environment file (.dev & .prod) for your config information of your database and Iyzipay test interface then fill the content as below.
 
 #### MongoDB config
 
 ```
-Just enough MongoDB connection url.
+MONGO_URL=
 ```
 #### Localhost config
 
@@ -47,11 +47,12 @@ URL=
 SECRET_KEY=
 ```
   
-Install dependencies and run app server with development mode
+Install dependencies and run app server with development or production mode
 
 ```
 npm install
 npm run start:dev
+npm run start:production
 ```  
   
 ## Usage with Docker
