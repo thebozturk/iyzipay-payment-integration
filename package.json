@@ -8,7 +8,16 @@
     "dev": "npx nodemon --exec npx @babel/node ./src/index.js dev --watch",
     "production":"npm run build && node ./build/index.js",
     "build": "babel src --out-dir=./build --copy-files",
-    "start": "npx @babel/node"
+    "start": "npx @babel/node",
+    "dockerize": "npm run build && docker build -t thebozturk/payment-system-dockerize .",
+    "dockerize:images": "docker images",
+    "dockerize:start": "docker run --name payment-system -p 80:8080 -d thebozturk/payment-system-dockerize:latest",
+    "dockerize:logs": "docker logs payment-system",
+    "dockerize:restart": "docker restart payment-system",
+    "dockerize:stop": "docker stop payment-system",
+    "dockerize:kill": "docker rm payment-system --force",
+    "dockerize:delete": "docker rmi thebozturk/payment-system-dockerize --force",
+    "dockerize:exec": "docker exec -it payment-system /bin/bash"
   },
   "repository": {
     "type": "git",
